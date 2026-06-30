@@ -1,12 +1,6 @@
 import type { NextConfig } from "next";
-import path from "path";
 
 const nextConfig: NextConfig = {
-  // Fix workspace root detection when nested inside a monorepo/parent directory
-  turbopack: {
-    root: path.resolve(__dirname),
-  },
-
   // Security headers for production
   async headers() {
     return [
