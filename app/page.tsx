@@ -98,7 +98,7 @@ export default function Portfolio() {
                 KARAPUREDDY PADMAJA
               </h1>
               <p style={{ fontSize:"16px", color:INK, lineHeight:1.7, margin:0, fontWeight:500 }}>
-                Backend-focused Software Engineer specialized in building high-performance data architectures and AI-driven platforms. Research Intern at the CVIT Lab, IIIT Hyderabad, with expertise in architecting scalable ETL pipelines, LLM-based data modeling, and containerized cloud services.
+                AI Engineer · Data Engineer · Backend Developer with strong foundations in Machine Learning, Data Structures, Database Systems, and scalable backend development. Experienced in building AI-assisted data pipelines, REST APIs, and validation workflows using Python, FastAPI, Node.js, MongoDB, and Next.js. Research Intern at the CVIT Lab, IIIT Hyderabad — work featured in The Hindu.
               </p>
               <div style={{ display:"flex", gap:"12px", marginTop:"12px" }}>
                 <Btn dark onClick={() => go("projects")}>View Projects ↓</Btn>
@@ -309,12 +309,14 @@ export default function Portfolio() {
         {/* SKILLS */}
         <section id="skills" style={{ paddingTop:"120px", paddingBottom:"120px", borderTop:`1px solid ${BORDER}` }}>
           <Divider num="03" label="Skills" />
-          <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:"1px", background:BORDER, borderRadius:"8px", overflow:"hidden" }}>
+          <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:"1px", background:BORDER, borderRadius:"8px", overflow:"hidden" }}>
             {([
-              ["Languages","Python · TypeScript · JavaScript · SQL · C++"],
-              ["Backend","Node.js · Express · REST APIs · FastAPI · Next.js"],
-              ["Databases","MongoDB Atlas · PostgreSQL · SQL · pgvector"],
-              ["Cloud & Tools","Docker · Google Cloud · Vercel · Git · Linux"],
+              ["Languages","Python · SQL · JavaScript · TypeScript"],
+              ["AI & Machine Learning","Machine Learning · NLP · Prompt Engineering · Data Preprocessing · Data Validation · Feature Engineering"],
+              ["Backend","FastAPI · Node.js · REST APIs · Express"],
+              ["Databases","MongoDB · PostgreSQL · SQL"],
+              ["Web","React.js · Next.js"],
+              ["Tools & Core CS","Git · Docker · Linux · Postman · DSA · OOP · DBMS · OS · Computer Networks"],
             ] as [string,string][]).map(([cat, items]) => (
               <div key={cat} style={{ background:BG, padding:"32px 28px" }}>
                 <div style={{ fontSize:"11px", fontWeight:700, letterSpacing:"0.1em", textTransform:"uppercase", color:MUTED, marginBottom:"20px" }}>{cat}</div>
@@ -429,7 +431,7 @@ export default function Portfolio() {
                   <div>
                     <div style={{ fontSize:"11px", fontWeight:700, letterSpacing:"0.1em", textTransform:"uppercase", color:MUTED, marginBottom:"8px", borderBottom:`1px solid ${BORDER}`, paddingBottom:"4px" }}>Profile</div>
                     <p style={{ fontSize:"12px", color:INK, lineHeight:1.6, margin:0 }}>
-                      Software Engineer with strong foundations in Data Structures, Algorithms, OOP, and Database Systems. Experience building backend applications, REST APIs, and data-driven platforms using Node.js, Python, SQL, and MongoDB. Currently contributing to AI and data engineering projects at CVIT, IIIT Hyderabad. Work on the AI-powered India Food Map project was featured by <em>The Hindu</em>.
+                      AI Engineer | Data Engineer | Backend Developer with strong foundations in Machine Learning, Data Structures, Database Systems, and scalable backend development. Experienced in building AI-assisted data pipelines, REST APIs, and data validation workflows using Python, FastAPI, Node.js, MongoDB, and Next.js. Currently contributing to AI and data engineering research at CVIT Lab, IIIT Hyderabad, with work featured in <em>The Hindu</em>.
                     </p>
                   </div>
 
@@ -531,12 +533,13 @@ export default function Portfolio() {
                   <div>
                     <div style={{ fontSize:"11px", fontWeight:700, letterSpacing:"0.1em", textTransform:"uppercase", color:MUTED, marginBottom:"8px", borderBottom:`1px solid ${BORDER}`, paddingBottom:"4px" }}>Skills</div>
                     <div style={{ display:"flex", flexDirection:"column", gap:"6px", fontSize:"11px" }}>
-                      <div><strong>Programming:</strong> Python, SQL, JavaScript</div>
-                      <div><strong>Core CS:</strong> Data Structures & Algorithms, OOP, DBMS</div>
-                      <div><strong>Backend:</strong> Node.js, FastAPI, REST APIs</div>
-                      <div><strong>Frontend:</strong> React.js, Next.js</div>
-                      <div><strong>Databases:</strong> MongoDB, SQL</div>
-                      <div><strong>Tools:</strong> Git, Docker</div>
+                      <div><strong>Languages:</strong> Python, SQL, JavaScript, TypeScript</div>
+                      <div><strong>AI & ML:</strong> Machine Learning, NLP, Prompt Engineering, Data Preprocessing, Data Validation, Feature Engineering</div>
+                      <div><strong>Backend:</strong> FastAPI, Node.js, REST APIs, Express</div>
+                      <div><strong>Web:</strong> React.js, Next.js</div>
+                      <div><strong>Databases:</strong> MongoDB, PostgreSQL, SQL</div>
+                      <div><strong>Tools:</strong> Git, Docker, Linux, Postman</div>
+                      <div><strong>Core CS:</strong> DSA, OOP, DBMS, OS, Computer Networks</div>
                     </div>
                   </div>
 
