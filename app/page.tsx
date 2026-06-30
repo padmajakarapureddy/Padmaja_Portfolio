@@ -11,11 +11,12 @@ const Ico = {
 };
 
 const BORDER = "#E2E0DA", BG = "#F8F7F4", CARD = "#EFEDE7", INK = "#111111", MUTED = "#6B7280";
+const ACCENT = "#4F46E5", ACCENT2 = "#7C3AED", ACCENTL = "#EEF2FF", GRAD = `linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%)`;
 
 const Divider = ({ num, label }: { num: string; label: string }) => (
   <div style={{ display:"flex", alignItems:"center", gap:"16px", marginBottom:"64px" }}>
-    <span style={{ fontSize:"11px", fontWeight:600, letterSpacing:"0.12em", textTransform:"uppercase", color:MUTED, whiteSpace:"nowrap" }}>{num}</span>
-    <div style={{ flex:1, height:"1px", background:BORDER }} />
+    <span style={{ fontSize:"11px", fontWeight:700, letterSpacing:"0.12em", textTransform:"uppercase", background:GRAD, WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text", whiteSpace:"nowrap" }}>{num}</span>
+    <div style={{ flex:1, height:"1px", background:`linear-gradient(90deg, ${ACCENT}40, ${BORDER})` }} />
     <span style={{ fontSize:"11px", fontWeight:600, letterSpacing:"0.12em", textTransform:"uppercase", color:MUTED, whiteSpace:"nowrap" }}>{label}</span>
   </div>
 );
@@ -61,12 +62,13 @@ export default function Portfolio() {
 
   const Btn = ({ children, onClick, dark }: { children: React.ReactNode; onClick?: () => void; dark?: boolean }) => (
     <button onClick={onClick} style={{
-      padding:"11px 26px", borderRadius:"6px", fontSize:"13px", fontWeight:600, fontFamily:"inherit", cursor:"pointer",
-      background: dark ? INK : "transparent", color: dark ? BG : INK,
-      border: dark ? "none" : `1px solid ${BORDER}`, transition:"all 0.2s",
+      padding:"11px 26px", borderRadius:"8px", fontSize:"13px", fontWeight:600, fontFamily:"inherit", cursor:"pointer",
+      background: dark ? GRAD : "transparent", color: dark ? "#fff" : INK,
+      border: dark ? "none" : `1px solid ${BORDER}`, transition:"all 0.25s",
+      boxShadow: dark ? `0 4px 14px ${ACCENT}40` : "none",
     }}
-      onMouseEnter={e => { if (dark) e.currentTarget.style.opacity="0.78"; else e.currentTarget.style.borderColor=INK; }}
-      onMouseLeave={e => { if (dark) e.currentTarget.style.opacity="1"; else e.currentTarget.style.borderColor=BORDER; }}
+      onMouseEnter={e => { if (dark) { e.currentTarget.style.transform="translateY(-1px)"; e.currentTarget.style.boxShadow=`0 8px 20px ${ACCENT}50`; } else { e.currentTarget.style.borderColor=ACCENT; e.currentTarget.style.color=ACCENT; } }}
+      onMouseLeave={e => { if (dark) { e.currentTarget.style.transform="translateY(0)"; e.currentTarget.style.boxShadow=`0 4px 14px ${ACCENT}40`; } else { e.currentTarget.style.borderColor=BORDER; e.currentTarget.style.color=INK; } }}
     >{children}</button>
   );
 
@@ -76,12 +78,12 @@ export default function Portfolio() {
     <div style={{ background:BG, color:INK, minHeight:"100vh", overflowX:"hidden" }}>
 
       {/* NAV */}
-      <header style={{ position:"fixed", top:0, left:0, right:0, zIndex:50, background: scrolled ? "rgba(248,247,244,0.94)" : "transparent", backdropFilter: scrolled ? "blur(14px)" : "none", borderBottom: scrolled ? `1px solid ${BORDER}` : "1px solid transparent", transition:"all 0.3s ease" }}>
+      <header style={{ position:"fixed", top:0, left:0, right:0, zIndex:50, background: scrolled ? "rgba(248,247,244,0.95)" : "transparent", backdropFilter: scrolled ? "blur(16px)" : "none", borderBottom: scrolled ? `1px solid ${BORDER}` : "1px solid transparent", transition:"all 0.3s ease" }}>
         <div style={{ ...wrap, height:"60px", display:"flex", alignItems:"center", justifyContent:"space-between" }}>
-          <button onClick={() => go("hero")} style={{ fontWeight:700, fontSize:"15px", letterSpacing:"-0.02em", background:"none", border:"none", cursor:"pointer", color:INK, fontFamily:"inherit" }}>Padmaja<span style={{ color:MUTED }}>.</span></button>
+          <button onClick={() => go("hero")} style={{ fontWeight:800, fontSize:"15px", letterSpacing:"-0.02em", background:"none", border:"none", cursor:"pointer", fontFamily:"inherit", backgroundImage:GRAD, WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text" }}>Padmaja<span style={{ WebkitTextFillColor:MUTED }}>.</span></button>
           <nav style={{ display:"flex", gap:"2px" }}>
             {(["projects","experience","skills","contact"] as const).map(id => (
-              <button key={id} onClick={() => go(id)} style={{ padding:"6px 14px", borderRadius:"6px", fontSize:"13px", fontWeight:500, color: active===id ? INK : MUTED, background: active===id ? CARD : "transparent", border:"none", cursor:"pointer", textTransform:"capitalize", fontFamily:"inherit", transition:"all 0.2s" }}>{id === "projects" ? "Projects" : id.charAt(0).toUpperCase() + id.slice(1)}</button>
+              <button key={id} onClick={() => go(id)} style={{ padding:"6px 14px", borderRadius:"6px", fontSize:"13px", fontWeight:500, color: active===id ? ACCENT : MUTED, background: active===id ? ACCENTL : "transparent", border:"none", cursor:"pointer", textTransform:"capitalize", fontFamily:"inherit", transition:"all 0.2s" }}>{id === "projects" ? "Projects" : id.charAt(0).toUpperCase() + id.slice(1)}</button>
             ))}
           </nav>
           <Btn dark onClick={() => setResume(true)}>Resume ↗</Btn>
@@ -91,13 +93,13 @@ export default function Portfolio() {
       <main style={wrap}>
 
         {/* HERO */}
-        <section id="hero" style={{ minHeight:"85vh", display:"flex", alignItems:"center", paddingTop:"120px", paddingBottom:"64px" }}>
+        <section id="hero" style={{ minHeight:"85vh", display:"flex", alignItems:"center", paddingTop:"120px", paddingBottom:"64px", background:"radial-gradient(ellipse 70% 60% at 15% 50%, rgba(79,70,229,0.07) 0%, transparent 70%)" }}>
           <div style={{ display:"grid", gridTemplateColumns:"1.6fr 1fr", gap:"64px", alignItems:"center", width:"100%" }} className="grid-cols-1 md:grid-cols-[1.6fr_1fr]">
             <div style={{ display:"flex", flexDirection:"column", gap:"20px" }}>
-              <h1 style={{ fontSize:"clamp(32px, 5.5vw, 54px)", fontWeight:800, letterSpacing:"-0.03em", lineHeight:1.05, margin:0 }}>
+              <h1 style={{ fontSize:"clamp(32px, 5.5vw, 54px)", fontWeight:800, letterSpacing:"-0.03em", lineHeight:1.05, margin:0, background:GRAD, WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text" }}>
                 KARAPUREDDY PADMAJA
               </h1>
-              <p style={{ fontSize:"16px", color:INK, lineHeight:1.7, margin:0, fontWeight:500 }}>
+              <p style={{ fontSize: "16px", color: "#8896AA", lineHeight:1.7, margin:0, fontWeight:500 }}>
                 AI Engineer · Data Engineer · Backend Developer with strong foundations in Machine Learning, Data Structures, Database Systems, and scalable backend development. Experienced in building AI-assisted data pipelines, REST APIs, and validation workflows using Python, FastAPI, Node.js, MongoDB, and Next.js. Research Intern at the CVIT Lab, IIIT Hyderabad — work featured in The Hindu.
               </p>
               <div style={{ display:"flex", gap:"12px", marginTop:"12px" }}>
@@ -107,13 +109,14 @@ export default function Portfolio() {
             </div>
             
             <div style={{ display:"flex", justifyContent:"center", width:"100%" }}>
-              <div style={{ position:"relative", width:"100%", maxWidth:"280px", height:"320px", borderRadius:"12px", overflow:"hidden", border:`1px solid ${BORDER}`, boxShadow:"0 16px 40px rgba(0,0,0,0.04)" }}>
+              <div style={{ position:"relative", width:"100%", maxWidth:"280px", height:"320px", borderRadius:"14px", overflow:"hidden", background:GRAD, padding:"2px", boxShadow:`0 20px 60px ${ACCENT}25` }}>
+              <div style={{ width:"100%", height:"100%", borderRadius:"12px", overflow:"hidden" }}>
                 <img 
                   src="/profilrpicturepadmaja.jpeg" 
                   alt="Padmaja Karapureddy" 
                   style={{ width:"100%", height:"100%", objectFit:"cover" }}
                 />
-              </div>
+              </div></div>
             </div>
           </div>
         </section>
@@ -167,7 +170,7 @@ export default function Portfolio() {
               <div style={{ background:CARD, padding:"40px", display:"flex", flexDirection:"column", justifyContent:"center", gap:"32px" }}>
                 {[["28","States covered"],["8K+","Dishes in prod"],["~80%","API perf gain"],["100%","Schema integrity"]].map(([v,l]) => (
                   <div key={l}>
-                    <div style={{ fontSize:"clamp(28px,3vw,42px)", fontWeight:800, letterSpacing:"-0.03em", lineHeight:1 }}>{v}</div>
+                    <div style={{ fontSize:"clamp(28px,3vw,42px)", fontWeight:800, letterSpacing:"-0.03em", lineHeight:1, background:GRAD, WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text" }}>{v}</div>
                     <div style={{ fontSize:"11px", color:MUTED, marginTop:"5px", fontWeight:600, letterSpacing:"0.07em", textTransform:"uppercase" }}>{l}</div>
                   </div>
                 ))}
@@ -182,9 +185,9 @@ export default function Portfolio() {
                 { icon:"⬢", title:"Cloud Deployment", body:"Dockerised and deployed to Google Cloud Run; auto-scaling to zero when idle with zero-downtime rolling deployments." },
                 { icon:"◉", title:"Performance Scaling", body:"Lazy loading and state-scoped APIs reduced initial load from 8K+ dishes to on-demand regional batches." },
               ].map(c => (
-                <div key={c.title} style={{ background:BG, padding:"32px" }}>
-                  <div style={{ fontSize:"20px", marginBottom:"12px", color:MUTED }}>{c.icon}</div>
-                  <h3 style={{ fontSize:"14px", fontWeight:700, margin:"0 0 10px", letterSpacing:"-0.01em" }}>{c.title}</h3>
+                <div key={c.title} style={{ background:BG, padding:"32px", transition:"background 0.2s" }} onMouseEnter={e=>e.currentTarget.style.background=ACCENTL} onMouseLeave={e=>e.currentTarget.style.background=BG}>
+                  <div style={{ fontSize:"22px", marginBottom:"12px", background:GRAD, WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text" }}>{c.icon}</div>
+                  <h3 style={{ fontSize:"14px", fontWeight:700, margin:"0 0 10px", letterSpacing:"-0.01em", color:ACCENT }}>{c.title}</h3>
                   <p style={{ fontSize:"13px", color:MUTED, lineHeight:1.65, margin:0 }}>{c.body}</p>
                 </div>
               ))}
@@ -193,7 +196,7 @@ export default function Portfolio() {
             {/* Stack */}
             <div style={{ display:"flex", gap:"8px", flexWrap:"wrap" }}>
               {["Next.js","Node.js","MongoDB Atlas","Python","Docker","Google Cloud Run","Pydantic","REST APIs"].map(t => (
-                <span key={t} style={{ padding:"5px 14px", borderRadius:"4px", border:`1px solid ${BORDER}`, fontSize:"12px", fontWeight:500, color:MUTED }}>{t}</span>
+                <span key={t} style={{ padding:"5px 14px", borderRadius:"20px", background:ACCENTL, border:`1px solid ${ACCENT}30`, fontSize:"12px", fontWeight:600, color:ACCENT }}>{t}</span>
               ))}
             </div>
           </div>
@@ -227,7 +230,7 @@ export default function Portfolio() {
               <div style={{ background:CARD, padding:"40px", display:"flex", flexDirection:"column", justifyContent:"center", gap:"32px" }}>
                 {[["JWT","Secure Auth"],["100+","Suppliers Onboarded"],["<200ms","API Latency"],["99.9%","Uptime / Reliability"]].map(([v,l]) => (
                   <div key={l}>
-                    <div style={{ fontSize:"clamp(28px,3vw,42px)", fontWeight:800, letterSpacing:"-0.03em", lineHeight:1 }}>{v}</div>
+                    <div style={{ fontSize:"clamp(28px,3vw,42px)", fontWeight:800, letterSpacing:"-0.03em", lineHeight:1, background:GRAD, WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text" }}>{v}</div>
                     <div style={{ fontSize:"11px", color:MUTED, marginTop:"5px", fontWeight:600, letterSpacing:"0.07em", textTransform:"uppercase" }}>{l}</div>
                   </div>
                 ))}
@@ -242,9 +245,9 @@ export default function Portfolio() {
                 { icon:"⬢", title:"Risk Assessment Logic", body:"Developed an algorithmic risk-scoring system using custom weighting parameters to classify supplier compliance integrity." },
                 { icon:"◉", title:"Scalable DB Modeling", body:"Structured schema designs in MongoDB with compound indexing, yielding query performance latency of under 200ms." },
               ].map(c => (
-                <div key={c.title} style={{ background:BG, padding:"32px" }}>
-                  <div style={{ fontSize:"20px", marginBottom:"12px", color:MUTED }}>{c.icon}</div>
-                  <h3 style={{ fontSize:"14px", fontWeight:700, margin:"0 0 10px", letterSpacing:"-0.01em" }}>{c.title}</h3>
+                <div key={c.title} style={{ background:BG, padding:"32px", transition:"background 0.2s" }} onMouseEnter={e=>e.currentTarget.style.background=ACCENTL} onMouseLeave={e=>e.currentTarget.style.background=BG}>
+                  <div style={{ fontSize:"22px", marginBottom:"12px", background:GRAD, WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text" }}>{c.icon}</div>
+                  <h3 style={{ fontSize:"14px", fontWeight:700, margin:"0 0 10px", letterSpacing:"-0.01em", color:ACCENT }}>{c.title}</h3>
                   <p style={{ fontSize:"13px", color:MUTED, lineHeight:1.65, margin:0 }}>{c.body}</p>
                 </div>
               ))}
@@ -253,7 +256,7 @@ export default function Portfolio() {
             {/* Stack */}
             <div style={{ display:"flex", gap:"8px", flexWrap:"wrap" }}>
               {["Node.js","Express","MongoDB","REST APIs","JWT Authentication","Docker","Supplier Intelligence"].map(t => (
-                <span key={t} style={{ padding:"5px 14px", borderRadius:"4px", border:`1px solid ${BORDER}`, fontSize:"12px", fontWeight:500, color:MUTED }}>{t}</span>
+                <span key={t} style={{ padding:"5px 14px", borderRadius:"20px", background:ACCENTL, border:`1px solid ${ACCENT}30`, fontSize:"12px", fontWeight:600, color:ACCENT }}>{t}</span>
               ))}
             </div>
           </div>
@@ -266,10 +269,10 @@ export default function Portfolio() {
             <div>
               <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:"20px" }}>
                 <div>
-                  <h3 style={{ fontSize:"22px", fontWeight:700, letterSpacing:"-0.02em", margin:"0 0 4px" }}>Research Intern</h3>
+                  <h3 style={{ fontSize:"22px", fontWeight:700, letterSpacing:"-0.02em", margin:"0 0 4px", color:ACCENT }}>Research Intern</h3>
                   <p style={{ fontSize:"14px", color:MUTED, margin:0, fontWeight:500 }}>CVIT Lab · IIIT Hyderabad</p>
                 </div>
-                <span style={{ fontSize:"12px", color:MUTED, background:CARD, padding:"4px 12px", borderRadius:"4px", border:`1px solid ${BORDER}`, whiteSpace:"nowrap" }}>2024 – Present</span>
+                <span style={{ fontSize:"12px", color:ACCENT, background:ACCENTL, padding:"4px 12px", borderRadius:"20px", border:`1px solid ${ACCENT}30`, whiteSpace:"nowrap", fontWeight:600 }}>2024 – Present</span>
               </div>
               <p style={{ fontSize:"14px", color:MUTED, lineHeight:1.7, margin:"0 0 20px" }}>Contributed to AI and data systems research at the Center for Visual Information Technology. Focused on backend data infrastructure, ingestion pipelines, and applied ML.</p>
               <ul style={{ listStyle:"none", padding:0, margin:0, display:"flex", flexDirection:"column", gap:"10px" }}>
@@ -319,10 +322,10 @@ export default function Portfolio() {
               ["Tools & Core CS","Git · Docker · Linux · Postman · DSA · OOP · DBMS · OS · Computer Networks"],
             ] as [string,string][]).map(([cat, items]) => (
               <div key={cat} style={{ background:BG, padding:"32px 28px" }}>
-                <div style={{ fontSize:"11px", fontWeight:700, letterSpacing:"0.1em", textTransform:"uppercase", color:MUTED, marginBottom:"20px" }}>{cat}</div>
-                <div style={{ display:"flex", flexDirection:"column", gap:"10px" }}>
+                <div style={{ fontSize:"11px", fontWeight:700, letterSpacing:"0.1em", textTransform:"uppercase", background:GRAD, WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text", marginBottom:"16px" }}>{cat}</div>
+                <div style={{ display:"flex", flexDirection:"column", gap:"8px" }}>
                   {items.split(" · ").map(s => (
-                    <span key={s} style={{ fontSize:"13px", fontWeight:500, color:INK }}>{s}</span>
+                    <span key={s} style={{ fontSize:"12px", fontWeight:600, color:ACCENT, background:ACCENTL, border:`1px solid ${ACCENT}20`, padding:"4px 10px", borderRadius:"6px", display:"inline-block", width:"fit-content" }}>{s}</span>
                   ))}
                 </div>
               </div>
@@ -372,7 +375,7 @@ export default function Portfolio() {
         <section id="contact" style={{ paddingTop:"120px", paddingBottom:"140px", borderTop:`1px solid ${BORDER}` }}>
           <Divider num="05" label="Contact" />
           <h2 style={{ fontSize:"clamp(40px,6.5vw,96px)", fontWeight:800, letterSpacing:"-0.04em", lineHeight:0.92, margin:"0 0 56px" }}>
-            Let&apos;s work<br /><span style={{ color:MUTED }}>together.</span>
+            Let&apos;s work<br /><span style={{ background:GRAD, WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text" }}>together.</span>
           </h2>
           <div style={{ display:"flex", gap:"12px", flexWrap:"wrap", alignItems:"center" }}>
             <button onClick={copyEmail} style={{ padding:"12px 22px", borderRadius:"6px", border:`1px solid ${BORDER}`, background:CARD, fontSize:"13px", fontFamily:"monospace", fontWeight:500, color:INK, cursor:"pointer", display:"flex", alignItems:"center", gap:"10px", transition:"border-color 0.2s" }}
