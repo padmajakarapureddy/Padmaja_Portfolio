@@ -3,7 +3,7 @@
 A premium, editorial developer portfolio and interactive resume built using **Next.js**, **React**, and **Tailwind CSS**. It showcases production-ready backend architectures, AI-driven data pipelines, and a complete curriculum vitae designed for recruitment.
 
 ## 🚀 Live Demo
-🌐 **Production URL:** [https://portfolio-padmaja.vercel.app](https://portfolio-padmaja.vercel.app) *(or your Vercel deployment link)*
+🌐 **Live Portfolio:** [https://padmaja-portfolio-eta.vercel.app](https://padmaja-portfolio-eta.vercel.app)
 
 ---
 
