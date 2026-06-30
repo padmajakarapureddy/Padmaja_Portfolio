@@ -45,10 +45,18 @@ export default function Portfolio() {
 
   const copyEmail = () => {
     const v = "padmajakarapureddy@gmail.com";
-    const el = Object.assign(document.createElement("input"), { value: v });
-    document.body.appendChild(el); el.select();
-    try { document.execCommand("copy"); setCopied(true); setTimeout(() => setCopied(false), 2000); } catch {}
-    document.body.removeChild(el);
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(v).then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      }).catch(() => {});
+    } else {
+      // Fallback for older browsers
+      const el = Object.assign(document.createElement("input"), { value: v });
+      document.body.appendChild(el); el.select();
+      try { document.execCommand("copy"); setCopied(true); setTimeout(() => setCopied(false), 2000); } catch {}
+      document.body.removeChild(el);
+    }
   };
 
   const Btn = ({ children, onClick, dark }: { children: React.ReactNode; onClick?: () => void; dark?: boolean }) => (

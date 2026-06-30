@@ -31,3 +31,4 @@ A secure, scalable supplier verification and risk credibility platform.
 *   **Core Logic:** Robust REST APIs, role-based access control (RBAC), secure JWT tokenization, and weighted risk-scoring modules.
 *   **Stack:** Node.js, Express, MongoDB, REST APIs, JSON Web Tokens (JWT), Docker.
 
+---
