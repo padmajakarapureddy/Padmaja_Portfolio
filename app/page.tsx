@@ -27,6 +27,7 @@ export default function Portfolio() {
   const [resume, setResume] = useState(false);
   const [copied, setCopied] = useState(false);
   const [showPublication, setShowPublication] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => {
@@ -42,7 +43,7 @@ export default function Portfolio() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const go = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior:"smooth" });
+  const go = (id: string) => { document.getElementById(id)?.scrollIntoView({ behavior:"smooth" }); setMobileMenuOpen(false); };
 
   const copyEmail = () => {
     const v = "padmajakarapureddy@gmail.com";
@@ -72,29 +73,42 @@ export default function Portfolio() {
     >{children}</button>
   );
 
-  const wrap = { maxWidth:"1080px", margin:"0 auto", padding:"0 40px" };
+
 
   return (
     <div style={{ background:BG, color:INK, minHeight:"100vh", overflowX:"hidden" }}>
 
       {/* NAV */}
       <header style={{ position:"fixed", top:0, left:0, right:0, zIndex:50, background: scrolled ? "rgba(248,247,244,0.95)" : "transparent", backdropFilter: scrolled ? "blur(16px)" : "none", borderBottom: scrolled ? `1px solid ${BORDER}` : "1px solid transparent", transition:"all 0.3s ease" }}>
-        <div style={{ ...wrap, height:"60px", display:"flex", alignItems:"center", justifyContent:"space-between" }}>
+        <div className="wrap" style={{ height:"60px", display:"flex", alignItems:"center", justifyContent:"space-between" }}>
           <button onClick={() => go("hero")} style={{ fontWeight:800, fontSize:"15px", letterSpacing:"-0.02em", background:"none", border:"none", cursor:"pointer", fontFamily:"inherit", backgroundImage:GRAD, WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text" }}>Padmaja<span style={{ WebkitTextFillColor:MUTED }}>.</span></button>
-          <nav style={{ display:"flex", gap:"2px" }}>
+          <nav className="nav-desktop">
             {(["projects","experience","skills","contact"] as const).map(id => (
               <button key={id} onClick={() => go(id)} style={{ padding:"6px 14px", borderRadius:"6px", fontSize:"13px", fontWeight:500, color: active===id ? ACCENT : MUTED, background: active===id ? ACCENTL : "transparent", border:"none", cursor:"pointer", textTransform:"capitalize", fontFamily:"inherit", transition:"all 0.2s" }}>{id === "projects" ? "Projects" : id.charAt(0).toUpperCase() + id.slice(1)}</button>
             ))}
           </nav>
-          <Btn dark onClick={() => setResume(true)}>Resume ↗</Btn>
+          <div style={{ display:"flex", alignItems:"center", gap:"12px" }}>
+            <Btn dark onClick={() => setResume(true)}>Resume ↗</Btn>
+            <button className="nav-mobile-btn" onClick={() => setMobileMenuOpen(o => !o)} style={{ background:"none", border:`1px solid ${BORDER}`, borderRadius:"6px", padding:"7px 10px", cursor:"pointer", display:"flex", flexDirection:"column", gap:"4px" }} aria-label="Toggle menu">
+              <span style={{ width:"18px", height:"2px", background: mobileMenuOpen ? "transparent" : INK, display:"block", transition:"all 0.2s" }} />
+              <span style={{ width:"18px", height:"2px", background:INK, display:"block", transform: mobileMenuOpen ? "rotate(45deg) translate(4px,4px)" : "none", transition:"all 0.2s" }} />
+              <span style={{ width:"18px", height:"2px", background:INK, display:"block", transform: mobileMenuOpen ? "rotate(-45deg) translate(4px,-4px)" : "none", transition:"all 0.2s" }} />
+            </button>
+          </div>
+        </div>
+        {/* Mobile Menu */}
+        <div className={`mobile-menu${mobileMenuOpen ? " open" : ""}`}>
+          {(["projects","experience","skills","contact"] as const).map(id => (
+            <button key={id} onClick={() => go(id)} style={{ padding:"14px 32px", borderRadius:"8px", fontSize:"17px", fontWeight:600, color: active===id ? ACCENT : MUTED, background: active===id ? ACCENTL : "transparent", border:"none", cursor:"pointer", textTransform:"capitalize", fontFamily:"inherit", width:"100%", maxWidth:"260px" }}>{id === "projects" ? "Projects" : id.charAt(0).toUpperCase() + id.slice(1)}</button>
+          ))}
         </div>
       </header>
 
-      <main style={wrap}>
+      <main className="wrap">
 
         {/* HERO */}
         <section id="hero" style={{ minHeight:"85vh", display:"flex", alignItems:"center", paddingTop:"120px", paddingBottom:"64px", background:"radial-gradient(ellipse 70% 60% at 15% 50%, rgba(79,70,229,0.07) 0%, transparent 70%)" }}>
-          <div style={{ display:"grid", gridTemplateColumns:"1.6fr 1fr", gap:"64px", alignItems:"center", width:"100%" }} className="grid-cols-1 md:grid-cols-[1.6fr_1fr]">
+          <div className="hero-grid">
             <div style={{ display:"flex", flexDirection:"column", gap:"20px" }}>
               <h1 style={{ fontSize:"clamp(32px, 5.5vw, 54px)", fontWeight:800, letterSpacing:"-0.03em", lineHeight:1.05, margin:0, background:GRAD, WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text" }}>
                 KARAPUREDDY PADMAJA
@@ -108,7 +122,7 @@ export default function Portfolio() {
               </div>
             </div>
             
-            <div style={{ display:"flex", justifyContent:"center", width:"100%" }}>
+            <div className="hero-photo">
               <div style={{ position:"relative", width:"100%", maxWidth:"280px", height:"320px", borderRadius:"14px", overflow:"hidden", background:GRAD, padding:"2px", boxShadow:`0 20px 60px ${ACCENT}25` }}>
               <div style={{ width:"100%", height:"100%", borderRadius:"12px", overflow:"hidden" }}>
                 <img 
@@ -156,7 +170,7 @@ export default function Portfolio() {
             </div>
 
             {/* Problem + metrics */}
-            <div style={{ display:"grid", gridTemplateColumns:"2.2fr 1fr", gap:"1px", background:BORDER, borderRadius:"8px", overflow:"hidden", marginBottom:"40px" }} className="grid-cols-1 md:grid-cols-[2.2fr_1fr]">
+            <div className="project-grid">
               <div style={{ background:BG, padding:"40px" }}>
                 <div style={{ fontSize:"11px", fontWeight:600, letterSpacing:"0.1em", textTransform:"uppercase", color:MUTED, marginBottom:"16px" }}>Problem</div>
                 <p style={{ fontSize:"14px", lineHeight:1.75, margin:"0 0 24px", color:INK }}>
@@ -216,7 +230,7 @@ export default function Portfolio() {
             </div>
 
             {/* Problem + metrics */}
-            <div style={{ display:"grid", gridTemplateColumns:"2.2fr 1fr", gap:"1px", background:BORDER, borderRadius:"8px", overflow:"hidden", marginBottom:"40px" }} className="grid-cols-1 md:grid-cols-[2.2fr_1fr]">
+            <div className="project-grid">
               <div style={{ background:BG, padding:"40px" }}>
                 <div style={{ fontSize:"11px", fontWeight:600, letterSpacing:"0.1em", textTransform:"uppercase", color:MUTED, marginBottom:"16px" }}>Problem</div>
                 <p style={{ fontSize:"14px", lineHeight:1.75, margin:"0 0 24px", color:INK }}>
@@ -265,7 +279,7 @@ export default function Portfolio() {
         {/* EXPERIENCE */}
         <section id="experience" style={{ paddingTop:"120px", paddingBottom:"120px", borderTop:`1px solid ${BORDER}` }}>
           <Divider num="02" label="Experience" />
-          <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"80px" }}>
+          <div className="exp-grid">
             <div>
               <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:"20px" }}>
                 <div>
@@ -312,7 +326,7 @@ export default function Portfolio() {
         {/* SKILLS */}
         <section id="skills" style={{ paddingTop:"120px", paddingBottom:"120px", borderTop:`1px solid ${BORDER}` }}>
           <Divider num="03" label="Skills" />
-          <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:"1px", background:BORDER, borderRadius:"8px", overflow:"hidden" }}>
+          <div className="skills-grid">
             {([
               ["Languages","Python · SQL · JavaScript · TypeScript"],
               ["AI & Machine Learning","Machine Learning · NLP · Prompt Engineering · Data Preprocessing · Data Validation · Feature Engineering"],
@@ -399,7 +413,7 @@ export default function Portfolio() {
 
       {/* FOOTER */}
       <footer style={{ borderTop:`1px solid ${BORDER}`, padding:"28px 0" }}>
-        <div style={{ ...wrap, display:"flex", justifyContent:"space-between", alignItems:"center" }}>
+        <div className="wrap footer-inner">
           <span style={{ fontSize:"13px", color:MUTED }}>© 2026 Padmaja Karapureddy</span>
           <span style={{ fontSize:"11px", color:MUTED, fontFamily:"monospace" }}>Built with Next.js · Deployed on Vercel</span>
         </div>
@@ -427,7 +441,7 @@ export default function Portfolio() {
               </div>
 
               {/* Two-Column Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="resume-grid">
                 {/* Left Column */}
                 <div style={{ display:"flex", flexDirection:"column", gap:"24px" }}>
                   {/* Profile */}
