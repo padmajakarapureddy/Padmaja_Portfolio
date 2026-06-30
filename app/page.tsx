@@ -11,7 +11,7 @@ const Ico = {
 };
 
 const BORDER = "#E2E0DA", BG = "#F8F7F4", CARD = "#EFEDE7", INK = "#111111", MUTED = "#6B7280";
-const ACCENT = "#4F46E5", ACCENT2 = "#7C3AED", ACCENTL = "#EEF2FF", GRAD = `linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%)`;
+const ACCENT = "#111111", ACCENT2 = "#374151", ACCENTL = "#F3F4F6", GRAD = `linear-gradient(135deg, #111111 0%, #374151 100%)`;
 
 const Divider = ({ num, label }: { num: string; label: string }) => (
   <div style={{ display:"flex", alignItems:"center", gap:"16px", marginBottom:"64px" }}>
